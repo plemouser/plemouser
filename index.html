@@ -1,11 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>PLEMO</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLEMO</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#0f1115;color:#fff}
+header{padding:15px;text-align:center;background:#12151c;font-size:20px}
+section{display:none;padding:30px 20px}
+section.active{display:block}
+button{padding:14px 20px;border:none;border-radius:8px;font-weight:bold}
+.primary{background:#4f8cff;color:#fff}
+.secondary{background:#2c3242;color:#fff}
+.danger{background:#c0392b;color:#fff}
+.card{background:#151926;border:1px solid #1f2430;border-radius:10px;padding:15px;margin:15px 0}
+.form{max-width:420px;margin:auto;text-align:center}
+input{width:100%;padding:14px;margin:10px 0;border-radius:8px;border:1px solid #2c3242;background:#151926;color:#fff}
+.note{font-size:13px;color:#b8bdd6;line-height:1.5}
+a{color:#4f8cff;cursor:pointer;font-size:14px}
+</style>
 </head>
-<body style="background:#0f1115;color:white;text-align:center;padding-top:40vh;font-family:Arial">
-  <h1>PLEMO</h1>
-  <p>Site is live ✅</p>
+
+<body>
+
+<header>PLEMO</header>
+
+<!-- MATCH COMPLETED -->
+<section id="completed" class="active">
+  <div class="form">
+    <h2>Match Completed</h2>
+
+    <div class="card">
+      <p><b>Your result:</b> You won</p>
+      <p><b>Score:</b> 2 - 1</p>
+    </div>
+
+    <button class="primary" onclick="go('waitingConfirm')">Submit Result</button>
+  </div>
+</section>
+
+<!-- WAITING FOR CONFIRMATION -->
+<section id="waitingConfirm">
+  <div class="form">
+    <h2>Waiting for Opponent</h2>
+
+    <div class="card note">
+      Opponent has <b>15 minutes</b> to confirm or dispute your result.
+      If no response, result will be accepted automatically.
+    </div>
+
+    <button class="secondary" onclick="go('dashboard')">Back to Dashboard</button>
+  </div>
+</section>
+
+<!-- OPPONENT CONFIRMATION -->
+<section id="confirmResult">
+  <div class="form">
+    <h2>Confirm Match Result</h2>
+
+    <div class="card">
+      <p><b>Opponent submitted:</b> 2 - 1</p>
+      <p><b>Winner:</b> Opponent</p>
+    </div>
+
+    <button class="primary" onclick="go('confirmed')">Confirm Result</button><br><br>
+    <button class="danger" onclick="go('dispute')">Dispute Result</button>
+  </div>
+</section>
+
+<!-- CONFIRMED -->
+<section id="confirmed">
+  <div class="form">
+    <h2>Result Confirmed</h2>
+
+    <div class="card note">
+      Result confirmed successfully. Winnings will be credited to the winner.
+    </div>
+
+    <button class="secondary" onclick="go('dashboard')">Back to Dashboard</button>
+  </div>
+</section>
+
+<!-- DISPUTE -->
+<section id="dispute">
+  <div class="form">
+    <h2>Raise a Dispute</h2>
+
+    <div class="card note">
+      Upload valid proof. Fake or misleading proof may result in penalties.
+    </div>
+
+    <input placeholder="Upload screenshot (required)">
+    <input placeholder="Upload screen recording (optional)">
+
+    <button class="danger" onclick="go('review')">Submit Dispute</button>
+  </div>
+</section>
+
+<!-- UNDER REVIEW -->
+<section id="review">
+  <div class="form">
+    <h2>Under Review</h2>
+
+    <div class="card note">
+      This match is under review.  
+      Please wait while evidence is analyzed.
+    </div>
+
+    <button class="secondary" onclick="go('dashboard')">Back to Dashboard</button>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="form">
+    <h2>Dashboard</h2>
+    <div class="card"><b>Status:</b> No active matches</div>
+  </div>
+</section>
+
+<script>
+function go(p){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(p).classList.add("active");
+}
+</script>
+
 </body>
 </html>
